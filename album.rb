@@ -38,7 +38,3 @@ class Album
   end
 
 end
- 
-
-("Ride the Lightning", "Metallica")
-("Licensed to Ill", "Beastie Boys")
