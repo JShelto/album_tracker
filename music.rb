@@ -23,7 +23,7 @@ def process_command_input(command)
   if dc_command.start_with?(/show all by/i)
     command.slice!(/show all by/i)
     args = retrieve_args(command)
-    Album.show_all_by(nil, args[0])
+    Album.show_where(nil, args[0])
 
   elsif dc_command.start_with?(/show all/i)
     Album.show_all
@@ -31,18 +31,18 @@ def process_command_input(command)
   elsif dc_command.start_with?(/show unplayed by/i)
     command.slice!(/show unplayed by/i)
     args = retrieve_args(command)
-    Album.show_all_by(false, args[0])
+    Album.show_where(false, args[0])
 
   elsif command.start_with?(/show unplayed/i)
-    Album.show_all_by(false, nil)
+    Album.show_where(false, nil)
 
   elsif dc_command.start_with?(/show played by/i)
     command.slice!(/show played by/i)
     args = retrieve_args(command)
-    Album.show_all_by(true, args[0])
+    Album.show_where(true, args[0])
 
   elsif command.start_with?(/show played/i)
-    Album.show_all_by(true, nil)
+    Album.show_where(true, nil)
 
   elsif dc_command.start_with?(/add/i)
     command.slice!("add")

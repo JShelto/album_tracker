@@ -53,13 +53,13 @@ class Album
   end
 
   #returns albums of a given played status, and those by a given artist if specified
-  def self.show_all_by(played, artist)
+  def self.show_where(played, artist)
     albums = []
     if played.nil? && artist.to_s == ""
       puts "Invalid input"
     else
       if played.nil? #played status unspecifed
-        albums = albums.select { |album| album.artist == artist }
+        albums = self.all.select { |album| album.artist == artist }
       elsif played == true 
         albums = self.all.select { |album| album.played == true }
         if artist.to_s != ""
