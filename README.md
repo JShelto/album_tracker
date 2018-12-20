@@ -1,7 +1,7 @@
 # Album Tracker
 
 ## Description
-A commandline ruby program for managing a music collection.
+A command line ruby program for managing a music collection.
 
 ### Setup:
 
