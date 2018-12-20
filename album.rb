@@ -9,32 +9,55 @@ class Album
     @played = false
 
     @@instances << self
+
+    puts "Added \"#{title} by #{artist}"
   end
 
   #marks a given album as played.
   def self.play(title)
     this_album = self.all.select { |album| album.title == title }[0]
-    this_album.played = true
+
+    if this_album.nil?
+      puts "\"#{title}\" not found"
+    else
+      this_album.played = true
+
+      puts "You\'re listening to \"#{title}\""
     end
+  end
 
   #displays all of the albums in the collection
   def self.all
-    @@instances
+    albums = @@instances
   end
 
-  #display all of the albums that are of a given played status
-  def self.list_all_by_played_status(played=true)
+  #displays all albums
+  def self.show_all
+    self.all.each do |album|
+      puts album.print_info
+    end
+  end
+
+  #returns albums of a given played status, and those by a given artist if specified
+  def self.show_all_by(played=true, artist=nil)
     albums = self.all.select { |album| album.played == played }
+    unless artist == nil
+      albums = albums.select { |album| album.artist == artist }
+    end
+    albums.each do |album|
+      puts album.print_info
+    end
   end
-
-  #shows all of the albums in the collection by the given artist
-  def self.list_all_by_artist(artist)
-    albums = self.all.select { |album| album.artist == artist }
-  end
-
 
   def self.count
     @@instances.count
   end
 
+  def print_info
+    "\"#{title}\" by #{artist} (#{played_status})"
+  end
+
+  def played_status
+    played ? "played" : "unplayed"
+  end
 end
