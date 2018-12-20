@@ -20,41 +20,41 @@ end
 #use the start of the input string to determine which Album method to call
 def process_command_input(command)
   dc_command = command.downcase
-  if dc_command.start_with?("show all by")
-    command.slice!("show all by")
+  if dc_command.start_with?(/show all by/i)
+    command.slice!(/show all by/i)
     args = retrieve_args(command)
-    Album.show_all_by(true, args[0])
+    Album.show_all_by(nil, args[0])
 
-  elsif dc_command.start_with?("show all")
+  elsif dc_command.start_with?(/show all/i)
     Album.show_all
 
-  elsif dc_command.start_with?("show unplayed by")
-    command.slice!("show unplayed by")
+  elsif dc_command.start_with?(/show unplayed by/i)
+    command.slice!(/show unplayed by/i)
     args = retrieve_args(command)
     Album.show_all_by(false, args[0])
 
-  elsif command.start_with?("show unplayed")
-    Album.show_all_by(false)
+  elsif command.start_with?(/show unplayed/i)
+    Album.show_all_by(false, nil)
 
-  elsif dc_command.start_with?("show played by")
-    command.slice!("show played by")
+  elsif dc_command.start_with?(/show played by/i)
+    command.slice!(/show played by/i)
     args = retrieve_args(command)
     Album.show_all_by(true, args[0])
 
-  elsif command.start_with?("show played")
-    Album.show_all_by(true)
+  elsif command.start_with?(/show played/i)
+    Album.show_all_by(true, nil)
 
-  elsif dc_command.start_with?("add")
+  elsif dc_command.start_with?(/add/i)
     command.slice!("add")
     args = retrieve_args(command)
     Album.fabricate(args[0], args[1])
 
-  elsif dc_command.start_with?("play")
+  elsif dc_command.start_with?(/play/i)
     command.slice!("play")
     args = retrieve_args(command)
-    Album.play(args[0], args[1])
+    Album.play(args[0])
 
-  elsif dc_command.start_with?("remove")
+  elsif dc_command.start_with?(/remove/i)
     command.slice!("remove")
     args = retrieve_args(command)
     Album.remove(args[0])

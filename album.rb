@@ -53,12 +53,25 @@ class Album
   end
 
   #returns albums of a given played status, and those by a given artist if specified
-  def self.show_all_by(played=true, artist=nil)
-    albums = self.all.select { |album| album.played == played }
-    unless artist == nil
-      albums = albums.select { |album| album.artist == artist }
+  def self.show_all_by(played, artist)
+    albums = []
+    if played.nil? && artist.to_s == ""
+      puts "Invalid input"
+    else
+      if played.nil? #played status unspecifed
+        albums = albums.select { |album| album.artist == artist }
+      elsif played == true 
+        albums = self.all.select { |album| album.played == true }
+        if artist.to_s != ""
+          albums = albums.select { |album| album.artist == artist }
+        end
+      else
+        albums = self.all.select { |album| album.played == false }
+        if artist.to_s != ""
+          albums = albums.select { |album| album.artist == artist }
+        end
+      end
     end
-
     if albums.empty?
       puts "No Albums Found"
     else
@@ -67,6 +80,7 @@ class Album
       end
     end
   end
+
 
   #check @@instances to see if album title exists
   def self.album_exists?(title)
