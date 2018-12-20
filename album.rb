@@ -3,7 +3,7 @@ class Album
 
   @@instances = []
 
-  def initialize(title, artist)
+  def initialize(title="Untitled", artist="Artist Not Specified")
     @title = title
     @artist = artist
     @played = false
@@ -13,10 +13,11 @@ class Album
     puts "Added \"#{title}\" by \"#{artist}\""
   end
 
+
   def self.fabricate(title, artist)
     if album_exists?(title)
       puts "\"#{title}\" already exists"
-    else 
+    else
       new(title, artist)
     end
   end
@@ -77,10 +78,12 @@ class Album
     @@instances.count
   end
 
+  #pretty print album info
   def print_info
     "\"#{title}\" by #{artist} (#{played_status})"
   end
 
+  #convert played status from boolean to string
   def played_status
     played ? "played" : "unplayed"
   end
